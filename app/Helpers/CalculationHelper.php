@@ -12,7 +12,7 @@ class CalculationHelper
 
         switch ($subCategory->title) {
             case 'mobile':
-                $international_shipping = ( 3 * $weight) * $qty;
+                $international_shipping = (3 * $weight) * $qty;
                 $customs = ($price * 0.6)* $qty;
                 $taxes = ($price + 100) * $qty;
                 $commission = ($price * 0.11) * $qty;
