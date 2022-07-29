@@ -14,9 +14,9 @@ class CalculationHelper
             case 'mobile':
                 $international_shipping = (3 * $weight) * $qty;
                 $customs = ($price * 0.6)* $qty;
-                $taxes = ($price + 100) * $qty;
+                $taxes = $price + 100;
                 $commission = ($price * 0.11) * $qty;
-                $value_added = ($international_shipping + $customs + $taxes + $commission) * 0.14;
+                $value_added = (($price * $qty) + $international_shipping + $customs + $taxes + $commission) * 0.14;
                 break;
             
             default:

@@ -713,20 +713,6 @@ class FrontendController extends Controller
         $all_cart_items = CartHelper::getItems();
         $products = Product::whereIn('id', array_keys($all_cart_items))->get();
 
-        //update
-        foreach($products as $product){
-            $price = isset($all_cart_items[$product->id]['attributes']['price']) ? $all_cart_items[$product->id]['attributes']['price'] : $product->sale_price;
-            $all_cart_items[$product->id][0]['commission'] = $price * 0.16;
-            $all_cart_items[$product->id][0]['customs'] = $price * 0.4;
-            $all_cart_items[$product->id][0]['taxes'] = $price * 0.2;
-
-            if($product->subCategory){
-                $cat = CalculationHelper::calcCategory($product->subCategory , $product , $all_cart_items);
-                $all_cart_items[$product->id][0]['category'] = $cat;
-            }
-        }
-        //update
-
         $subtotal = CartAction::getCartTotalAmount($all_cart_items, $products);
         $subtotal_with_tax = $subtotal + $default_shipping_cost;
         $total = CartAction::calculateCoupon($request, $subtotal_with_tax, $products);

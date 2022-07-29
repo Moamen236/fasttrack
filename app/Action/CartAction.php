@@ -32,18 +32,7 @@ class CartAction {
                 $quantity = $item['quantity'];
                 $price = isset($item['attributes']['price']) ? $item['attributes']['price'] : $product->sale_price;
 
-                //update
-                $commission = ($price * $quantity) * 0.16; // commission;
-                $customs = ($price * $quantity) * 0.4; // customs;
-                $taxes = ($price * $quantity) * 0.2; // taxes;
-                $product_price = ($price * $quantity) + $commission + $customs + $taxes;
-
-                if ($product->subCategory) {
-                    $cat = CalculationHelper::calcCategory($product->subCategory, $product, $cart_items);
-                    $subtotal += $cat;
-                }
-
-                $subtotal += $product_price;
+                $subtotal += $price * $quantity;
             }
         }
 

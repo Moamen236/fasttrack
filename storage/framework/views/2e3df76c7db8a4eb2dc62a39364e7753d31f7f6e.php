@@ -21,16 +21,6 @@
             }
 
             $price = $cart_item['attributes']['price'] ?? $product->sale_price;
-            // update
-            $commission_plus = $cart_item['quantity'] * $cart_item['commission'];
-            $customs_plus = $cart_item['quantity'] * $cart_item['customs'];
-            $taxes_plus = $cart_item['quantity'] * $cart_item['taxes'];
-            if(isset($cart_item['category'])){
-                $category_plus = $cart_item['quantity'] * $cart_item['category'];
-                $product_price = $category_plus + $commission_plus + $customs_plus + $taxes_plus + ($price * $cart_item['quantity']);
-            }else {
-                $product_price = $commission_plus + $customs_plus + $taxes_plus + ($price * $cart_item['quantity']);
-            }
         ?>
         <div class="cost-name-amount">
             <span class="same sub"><?php echo e($product->title . $item_attributes); ?>
@@ -40,29 +30,6 @@
             </span>
             <span
                 class="same sub-amount"><?php echo e(float_amount_with_currency_symbol($price * $cart_item['quantity'])); ?></span>
-        </div>
-        <?php if(isset($cart_item['category'])): ?>
-        <div class="cost-name-amount sub-total-wrap">
-            <span class="font-weight-bold">category:</span>
-            <span class="font-weight-bold">(+)<span id="tax_amount"><?php echo e(float_amount_with_currency_symbol($category_plus)); ?></span></span>
-        </div>
-        <?php endif; ?>
-        <div class="cost-name-amount sub-total-wrap">
-            <span class="font-weight-bold">commission:</span>
-            <span class="font-weight-bold">(+)<span id="tax_amount"><?php echo e(float_amount_with_currency_symbol($commission_plus)); ?></span></span>
-        </div>
-        <div class="cost-name-amount sub-total-wrap">
-            <span class="font-weight-bold">customs:</span>
-            <span class="font-weight-bold">(+)<span id="tax_amount"><?php echo e(float_amount_with_currency_symbol($customs_plus)); ?></span></span>
-        </div>
-        <div class="cost-name-amount sub-total-wrap">
-            <span class="font-weight-bold">taxes:</span>
-            <span class="font-weight-bold">(+)<span id="tax_amount"><?php echo e(float_amount_with_currency_symbol($taxes_plus)); ?></span></span>
-        </div>
-
-        <div class="cost-name-amount sub-total-wrap">
-            <span class="font-weight-bold">total:</span>
-            <span class="font-weight-bold">(+) <span id="tax_amount"><?php echo e(float_amount_with_currency_symbol($product_price)); ?> </span> </span>
         </div>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
